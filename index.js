@@ -5,16 +5,15 @@ function handleError(error) {
     throw new Error(chalk.red(error, '\nArquivo não encontrado!'));
 }
 
-function getFile(filepath) {
-    const encoding = 'utf-8';
-
-    fs.readFile(filepath, encoding, (error, text) => {
-        if (error) {
-            handleError(error);
-        }
+async function getFile(filepath) {
+    try {
+        const encoding = 'utf-8';
+        const text = await fs.promises.readFile(filepath, encoding);
 
         console.log(chalk.green(text));
-    });
+    } catch (err) {
+        handleError(err);
+    }
 }
 
-console.log(getFile('./files/text1.md'));
+getFile('./files/text1.md');
