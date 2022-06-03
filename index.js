@@ -7,13 +7,12 @@ function extractLink(text) {
     let temp = [];
 
     while ((temp = regex.exec(text)) !== null) {
-        console.log(temp);
         textList.push({
             [temp[1]]: temp[2],
         });
     }
 
-    return textList;
+    return textList.length === 0 ? 'Não há links' : textList;
 }
 
 function handleError(error) {
@@ -25,10 +24,12 @@ async function getFile(filepath) {
         const encoding = 'utf-8';
         const text = await fs.promises.readFile(filepath, encoding);
 
-        console.log(extractLink(text));
+        return extractLink(text);
     } catch (err) {
         handleError(err);
     }
 }
 
-getFile('./files/text1.md');
+// getFile('./files/text1.md');
+
+export { getFile };
