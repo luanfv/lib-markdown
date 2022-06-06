@@ -9,7 +9,7 @@ async function procressText(pathFile) {
     const response = await getFile(pathFile[2]);
 
     if (path[3] === 'check') {
-        console.log(chalk.yellow('Links validados'), checkURLs(response));
+        console.log(chalk.yellow('Links validados'), await checkURLs(response));
 
         return;
     }
